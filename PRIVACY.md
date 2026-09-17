@@ -63,7 +63,7 @@ GladKit **не собирает, не хранит и не передаёт** п
 ## Контакты
 
 По вопросам, связанным с обработкой данных, обращайтесь к автору
-расширения через GitHub: https://github.com/danyaskyline/gladkit/issues
+расширения в игре: [copium](https://www.gladiators.ru/users/2099112).
 
 ## Исходный код
 
