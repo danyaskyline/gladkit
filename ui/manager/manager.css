@@ -1,0 +1,970 @@
+/* ============================================================================
+   ui/manager/manager.css
+   ============================================================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    color: #333;
+    margin: 0;
+    background: #fafafa;
+}
+
+/* ---- Layout ---- */
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: #f2f2f2;
+    border-right: 1px solid #ddd;
+    padding: 20px 0 24px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    padding: 0 20px 16px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 12px;
+}
+
+.sidebar-header h1 {
+    font-size: 18px;
+    margin: 0 0 2px;
+    color: #333;
+}
+
+.sidebar-subtitle {
+    font-size: 11px;
+    color: #888;
+    margin: 0;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 12px;
+}
+
+.nav-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nav-group-title {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #888;
+    padding: 0 8px 4px;
+}
+
+.nav-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    font-family: inherit;
+    font-size: 13px;
+    color: #444;
+    cursor: pointer;
+    transition: background 0.1s;
+}
+
+.nav-item:hover {
+    background: #e6e6e6;
+}
+
+.nav-item.active {
+    background: #6a8f4a;
+    color: #fff;
+    font-weight: 500;
+}
+
+.content {
+    flex: 1;
+    min-width: 0;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 32px 80px;
+}
+
+/* ---- Заголовки страниц ---- */
+
+.view > h2 {
+    font-size: 20px;
+    margin: 0 0 4px;
+    color: #222;
+}
+
+.view > .hint {
+    margin: 0 0 20px;
+}
+
+.hint {
+    color: #777;
+    font-size: 12px;
+    line-height: 1.45;
+    margin: 0 0 8px;
+}
+
+code {
+    background: #eee;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: ui-monospace, monospace;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ---- Блоки ---- */
+
+.block {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+}
+
+.block > h3 {
+    font-size: 15px;
+    margin: 0 0 8px;
+    color: #222;
+}
+
+.block > h3:first-child {
+    margin-top: 0;
+}
+
+.block-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.block-title-row > h3 {
+    font-size: 15px;
+    margin: 0;
+}
+
+.block-counter {
+    font-size: 12px;
+    color: #888;
+    background: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.danger-block {
+    border-color: #e0b8b8;
+    background: #fffafa;
+}
+
+.danger-block > h3 {
+    color: #a33;
+}
+
+/* ---- Subsections ---- */
+
+.subsection {
+    padding: 12px 0;
+    border-top: 1px solid #eee;
+}
+
+.subsection:first-of-type {
+    padding-top: 0;
+    border-top: none;
+}
+
+.subsection-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: #444;
+    margin-bottom: 6px;
+}
+
+/* ---- Формы ---- */
+
+.add-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 10px 12px;
+    background: #f7f7f7;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+
+.add-form input[type="text"],
+.add-form input[type="number"] {
+    flex: 1;
+    min-width: 140px;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: inherit;
+    background: #fff;
+}
+
+.add-form select {
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 13px;
+    background: #fff;
+    font-family: inherit;
+}
+
+.add-form button {
+    padding: 6px 14px;
+    cursor: pointer;
+    background: #6a8f4a;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: inherit;
+}
+
+.add-form button:hover {
+    background: #597a3d;
+}
+
+.chk {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #555;
+    cursor: pointer;
+}
+
+/* ---- Списки-чипы ---- */
+
+.levels-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.level-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    font-size: 12px;
+}
+
+.level-chip .remove {
+    cursor: pointer;
+    color: #c33;
+    font-weight: bold;
+    border: none;
+    background: none;
+    padding: 0 2px;
+    font-size: 14px;
+}
+
+.level-chip .remove:hover {
+    color: #900;
+}
+
+/* ---- Таблицы ---- */
+
+.rules-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.rules-table th,
+.rules-table td {
+    text-align: left;
+    padding: 6px 8px;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.rules-table th {
+    background: #f7f7f7;
+    font-weight: 600;
+    font-size: 12px;
+    color: #555;
+    border-bottom: 2px solid #ddd;
+    position: sticky;
+    top: 0;
+}
+
+.rules-table tr:hover td {
+    background: #fafafa;
+}
+
+.rules-table code {
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+}
+
+.rules-table .actions-cell {
+    white-space: nowrap;
+    text-align: right;
+}
+
+/* ---- Иконки-кнопки ---- */
+
+.icon-btn {
+    cursor: pointer;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 2px 6px;
+    margin-left: 3px;
+    font-size: 12px;
+    font-family: inherit;
+}
+
+.icon-btn:hover {
+    background: #e0e0e0;
+}
+
+.icon-btn.danger {
+    color: #c33;
+    border-color: #e0b8b8;
+}
+
+.icon-btn.danger:hover {
+    background: #f5d5d5;
+}
+
+/* ---- Настройки-строки ---- */
+
+.settings-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.settings-row label {
+    font-size: 13px;
+    color: #555;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.settings-row input[type="number"],
+.settings-row input[type="color"],
+.settings-row input[type="text"],
+.settings-row select {
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: inherit;
+    background: #fff;
+}
+
+.settings-row input[type="color"] {
+    padding: 2px;
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+}
+
+/* ---- Кнопки ---- */
+
+.danger-btn {
+    cursor: pointer;
+    padding: 8px 16px;
+    background: #d63a2e;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: inherit;
+}
+
+.danger-btn:hover {
+    background: #b02c22;
+}
+
+.danger-btn.small {
+    padding: 4px 10px;
+    font-size: 12px;
+}
+
+.primary-btn {
+    cursor: pointer;
+    padding: 8px 16px;
+    background: #6a8f4a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: inherit;
+}
+
+.primary-btn:hover {
+    background: #597a3d;
+}
+
+#export-btn,
+#dict-export-json-btn,
+#dict-export-csv-btn,
+#players-export-btn,
+.file-label {
+    cursor: pointer;
+    padding: 8px 16px;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: inherit;
+    color: #333;
+    display: inline-block;
+}
+
+#export-btn:hover,
+#dict-export-json-btn:hover,
+#dict-export-csv-btn:hover,
+#players-export-btn:hover,
+.file-label:hover {
+    background: #e5e5e5;
+}
+
+/* ---- Уведомления ---- */
+
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #333;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.toast.visible {
+    opacity: 0.92;
+}
+
+/* ---- Инлайн-инпуты в таблицах ---- */
+
+.inline-input {
+    width: 100%;
+    padding: 4px 6px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background: transparent;
+    font-size: 13px;
+    font-family: inherit;
+    color: #333;
+}
+
+.inline-input:hover {
+    border-color: #ddd;
+    background: #fafafa;
+}
+
+.inline-input:focus {
+    outline: none;
+    border-color: #6a8f4a;
+    background: #fff;
+}
+
+.inline-select {
+    width: 100%;
+    padding: 4px 6px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background: transparent;
+    font-size: 13px;
+    font-family: inherit;
+    color: #333;
+    cursor: pointer;
+}
+
+.inline-select:hover {
+    border-color: #ddd;
+    background: #fafafa;
+}
+
+.inline-select:focus {
+    outline: none;
+    border-color: #6a8f4a;
+    background: #fff;
+}
+
+/* ---- Вкладка «Меню»: группы ---- */
+
+.menu-group {
+    margin-bottom: 20px;
+}
+
+.menu-group-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+    margin: 0 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.menu-empty {
+    font-style: italic;
+    margin: 4px 0 12px 8px;
+}
+
+.menu-item-card {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+}
+
+.menu-item-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.menu-item-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menu-field-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.menu-field-label {
+    width: 80px;
+    flex-shrink: 0;
+    font-size: 12px;
+    color: #666;
+}
+
+.menu-field-row .inline-input,
+.menu-field-row .inline-select {
+    flex: 1;
+    min-width: 0;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #fff;
+    font-size: 13px;
+}
+
+.menu-field-row .inline-input:focus,
+.menu-field-row .inline-select:focus {
+    outline: none;
+    border-color: #6a8f4a;
+}
+
+/* ---- Менеджер: игроки ---- */
+
+.players-add-row td {
+    padding: 8px 10px !important;
+    background: #f7f7f7;
+    border-bottom: 2px solid #ddd !important;
+}
+
+.players-add-input {
+    display: inline-block;
+    width: calc(100% - 130px);
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: inherit;
+    background: #fff;
+    color: #333;
+}
+
+.players-add-input:focus {
+    outline: none;
+    border-color: #6a8f4a;
+}
+
+.players-add-btn {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 6px 14px;
+    cursor: pointer;
+    background: #6a8f4a;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: inherit;
+}
+
+.players-add-btn:hover {
+    background: #597a3d;
+}
+
+.players-color-input {
+    width: 32px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid #918567;
+    border-radius: 3px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.players-id-link {
+    color: #4a3c22;
+    text-decoration: underline;
+    font-size: 12px;
+}
+
+.players-id-link:hover {
+    color: #7a0000;
+}
+
+.players-note-textarea {
+    width: 100%;
+    min-height: 38px;
+    max-height: 120px;
+    font-family: inherit;
+    font-size: 12px;
+    padding: 4px 6px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #fff;
+    color: #333;
+    resize: vertical;
+}
+
+.players-note-textarea:hover {
+    border-color: #ddd;
+    background: #fafafa;
+}
+
+.players-note-textarea:focus {
+    outline: none;
+    border-color: #6a8f4a;
+    background: #fff;
+}
+
+.players-lock {
+    display: inline-block;
+    font-size: 14px;
+    opacity: 0.5;
+    cursor: help;
+}
+
+/* ============================================================================
+   Collapse-секции и группы (вкладка «Турниры»)
+   ============================================================================ */
+
+.collapse-block {
+    padding: 0;
+    overflow: hidden;
+}
+
+.collapse-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid #eee;
+    background: #fafafa;
+}
+
+.collapse-header h3 {
+    font-size: 15px;
+    margin: 0;
+    color: #222;
+}
+
+.collapse-btn {
+    cursor: pointer;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-family: inherit;
+    color: #555;
+}
+
+.collapse-btn:hover {
+    background: #e5e5e5;
+}
+
+.collapse-body {
+    padding: 16px 20px;
+}
+
+.collapse-block.collapsed .collapse-body {
+    display: none;
+}
+
+.collapse-block.collapsed .collapse-header {
+    border-bottom: none;
+}
+
+/* ---- Группы внутри секции ---- */
+
+.group {
+    margin-bottom: 20px;
+}
+
+.group:last-child {
+    margin-bottom: 0;
+}
+
+.group-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #eee;
+}
+
+.group-counter {
+    font-size: 11px;
+    font-weight: normal;
+    color: #888;
+    background: #f0f0f0;
+    padding: 1px 8px;
+    border-radius: 10px;
+}
+
+/* ============================================================================
+   Иконка «?» с тултипом
+   ============================================================================ */
+
+.help-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #918567;
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: help;
+    position: relative;
+    vertical-align: middle;
+    margin-left: 8px;
+    user-select: none;
+}
+
+.help-icon::before {
+    content: '?';
+}
+
+.help-icon:hover {
+    background: #6a6050;
+}
+
+.help-icon::after {
+    content: attr(data-tip);
+    position: absolute;
+    top: calc(100% + 8px);
+    left: -20px;
+    width: 420px;
+    background: #2b2b2b;
+    color: #f0f0f0;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.5;
+    text-align: left;
+    white-space: pre-line;
+    display: none;
+    z-index: 9999;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+}
+
+.help-icon::before {
+    /* маркер для стрелочки-указателя */
+    content: '?';
+}
+
+.help-icon:hover::after {
+    display: block;
+}
+
+/* ============================================================================
+   Менеджер: таблица игроков
+   ============================================================================ */
+
+.players-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 24px;
+}
+
+.players-name-link {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px dashed #ccc;
+    font-weight: 500;
+}
+
+.players-name-link:hover {
+    color: #6a8f4a;
+    border-bottom-color: #6a8f4a;
+}
+
+.players-name-link.players-name-empty {
+    color: #999;
+    font-style: italic;
+    font-weight: normal;
+}
+
+.players-name-input {
+    flex: 1;
+    min-width: 0;
+    padding: 4px 6px;
+    border: 1px solid #6a8f4a;
+    border-radius: 3px;
+    background: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    color: #333;
+}
+
+.players-name-input:focus {
+    outline: none;
+}
+
+.players-name-btn {
+    cursor: pointer;
+    padding: 1px 6px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background: transparent;
+    color: #888;
+    font-size: 12px;
+    line-height: 1;
+}
+
+.players-name-btn:hover {
+    background: #f0f0f0;
+    color: #333;
+    border-color: #ddd;
+}
+
+.players-name-reset {
+    color: #6a8f4a;
+}
+
+.players-name-reset:hover {
+    color: #597a3d;
+}
+
+.players-name-badge {
+    display: inline-block;
+    font-size: 10px;
+    color: #888;
+    background: #f0f0f0;
+    padding: 1px 6px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* ---- Разделитель группы по цвету ---- */
+
+.players-group-row td {
+    padding: 6px 10px !important;
+    background: #fafafa;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+}
+
+.players-group-row:first-child td {
+    border-top: none;
+}
+
+.players-group-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* Кружок группы: кликабельный, при наведении увеличивается */
+.players-group-row .players-group-dot {
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.players-group-row .players-group-dot:hover {
+    transform: scale(1.3);
+}
+
+/* Скрытый input для вызова системного color-picker */
+.players-group-color-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    border: none;
+    padding: 0;
+}

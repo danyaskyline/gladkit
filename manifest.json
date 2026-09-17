@@ -1,0 +1,114 @@
+{
+  "manifest_version": 3,
+  "name": "GladKit",
+  "version": "1.0.0",
+  "description": "Расширение для Gladiators.ru: фильтры турниров и заметки об игроках. Работает локально, данные никуда не уходят.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://gladiators.ru/*",
+    "https://www.gladiators.ru/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://gladiators.ru/xml/arena/tournaments.php*",
+        "https://www.gladiators.ru/xml/arena/tournaments.php*",
+        "https://gladiators.ru/xml/residence/glory.php*",
+        "https://www.gladiators.ru/xml/residence/glory.php*"
+      ],
+      "js": ["content/preload.js"],
+      "css": ["styles/preload.css"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://gladiators.ru/*",
+        "https://www.gladiators.ru/*"
+      ],
+      "js": [
+        "config/site.js",
+        "config/data-defaults.js",
+        "config/dict-default.js",
+        "core/utils.js",
+        "core/config.js",
+        "core/storage.js",
+        "core/store.js",
+
+        "features/menu-tweaks/constants.js",
+        "features/menu-tweaks/menu-detector.js",
+        "features/menu-tweaks/menu-builder.js",
+        "features/menu-tweaks/index.js",
+
+        "features/tournament-filter/detect-typeid.js",
+        "features/tournament-filter/highlight.js",
+        "features/tournament-filter/panel.js",
+        "features/tournament-filter/engine.js",
+        "features/tournament-filter/index.js",
+
+        "features/hall-of-fame-filter/detect-page.js",
+        "features/hall-of-fame-filter/dict.js",
+        "features/hall-of-fame-filter/parse-blocks.js",
+        "features/hall-of-fame-filter/panel.js",
+        "features/hall-of-fame-filter/engine.js",
+        "features/hall-of-fame-filter/index.js",
+
+        "features/profile-enhancements/detect-page.js",
+        "features/profile-enhancements/blocks.js",
+        "features/profile-enhancements/trophy-link.js",
+        "features/profile-enhancements/highlight.js",
+        "features/profile-enhancements/tournaments.js",
+        "features/profile-enhancements/panel.js",
+        "features/profile-enhancements/index.js",
+
+        "features/guild-enhancements/detect-page.js",
+        "features/guild-enhancements/blocks.js",
+        "features/guild-enhancements/index.js",
+
+        "features/trophy-counter/detect-page.js",
+        "features/trophy-counter/parse.js",
+        "features/trophy-counter/index.js",
+
+        "features/pagination/index.js",
+
+        "features/player-marks/detect-page.js",
+        "features/player-marks/highlight.js",
+        "features/player-marks/popup.js",
+        "features/player-marks/index.js",
+
+        "content/main.js"
+      ],
+      "css": ["styles/content.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "ui/popup/popup.html",
+    "default_title": "GladKit",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "ui/manager/manager.html",
+        "ui/welcome/welcome.html"
+      ],
+      "matches": ["https://gladiators.ru/*", "https://www.gladiators.ru/*"]
+    },
+    {
+      "resources": ["icons/olympic/1.png", "icons/olympic/2.png"],
+      "matches": ["https://gladiators.ru/*", "https://www.gladiators.ru/*"]
+    }
+  ]
+}

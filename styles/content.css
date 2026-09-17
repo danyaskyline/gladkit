@@ -1,0 +1,1037 @@
+/* ============================================================================
+   styles/content.css — стили панели фильтра и подсветки.
+   Все классы с префиксом gh-, чтобы не конфликтовать с сайтом.
+   ============================================================================ */
+
+/* ============================================================================
+   Панель фильтра (tournaments.php)
+   ============================================================================ */
+
+#gh-panel {
+    background: #E7DBBB;
+    border: 1px solid #918567;
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-family: inherit;
+    color: #4a3c22;
+}
+
+.gh-hidden {
+    display: none !important;
+}
+
+.gh-levels-row,
+.gh-categories-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    padding: 4px 2px;
+}
+
+.gh-chk {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.gh-chk input {
+    cursor: pointer;
+}
+
+.gh-divider {
+    height: 1px;
+    background: #918567;
+    opacity: 0.5;
+    margin: 6px 2px;
+}
+
+.gh-header-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.gh-title {
+    font-weight: bold;
+}
+
+#gh-counter {
+    color: #5a4a2a;
+    margin-left: auto;
+}
+
+#gh-expand-btn {
+    cursor: pointer;
+    background: #f7f0dc;
+    border: 1px solid #918567;
+    border-radius: 3px;
+    padding: 2px 8px;
+    font-size: 12px;
+}
+
+.gh-switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.gh-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.gh-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #b3a583;
+    transition: 0.15s;
+    border-radius: 18px;
+}
+
+.gh-slider::before {
+    position: absolute;
+    content: "";
+    height: 14px; width: 14px;
+    left: 2px; bottom: 2px;
+    background-color: #fff;
+    transition: 0.15s;
+    border-radius: 50%;
+}
+
+.gh-switch input:checked + .gh-slider {
+    background-color: #6a8f4a;
+}
+
+.gh-switch input:checked + .gh-slider::before {
+    transform: translateX(16px);
+}
+
+/* ---- Иконка «?» с подсказкой ---- */
+
+.gh-help {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #918567;
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: help;
+    user-select: none;
+    margin: 0 0 0 6px;
+    flex-shrink: 0;
+}
+
+.gh-help:hover {
+    background: #6a6050;
+}
+
+.gh-help::after {
+    content: attr(data-tip);
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 340px;
+    background: #2b2b2b;
+    color: #f0f0f0;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.5;
+    text-align: left;
+    white-space: pre-line;
+    display: none;
+    z-index: 999999;
+    pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.gh-help:hover::after {
+    display: block;
+}
+
+.gh-help::before {
+    content: '';
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 6px;
+    border: 6px solid transparent;
+    border-bottom-color: #2b2b2b;
+    display: none;
+    z-index: 999999;
+    pointer-events: none;
+}
+
+.gh-help:hover::before {
+    display: block;
+}
+
+/* ============================================================================
+   Иконка «?» для неизвестных турниров (tournament-filter)
+   ============================================================================ */
+
+.gh-unknown-badge {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+    color: #fff;
+    background: #d63a2e;
+    border-radius: 50%;
+    cursor: help;
+    user-select: none;
+    z-index: 10;
+}
+
+/* ============================================================================
+   Глобальный тултип для неизвестных турниров (tournament-filter)
+   ============================================================================ */
+
+#gh-global-tooltip {
+    position: fixed;
+    z-index: 99999;
+    width: 320px;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 2px solid;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 1.45;
+    color: #333;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+}
+
+.gh-tooltip-title {
+    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 13px;
+}
+
+.gh-tooltip-section {
+    margin-top: 8px;
+    font-weight: 600;
+    color: #555;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.gh-tooltip-item {
+    margin: 2px 0 2px 4px;
+    color: #333;
+    font-size: 12px;
+}
+
+.gh-tooltip-item b {
+    color: #555;
+}
+
+/* ---- Кнопки «Все» / «Ничего» и заголовки строк ---- */
+
+.gh-row-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px;
+    margin-bottom: 2px;
+}
+
+.gh-row-label {
+    font-weight: bold;
+    color: #4a3c22;
+    margin-right: 4px;
+}
+
+.gh-mini-btn {
+    cursor: pointer;
+    background: #f7f0dc;
+    border: 1px solid #918567;
+    border-radius: 3px;
+    padding: 1px 8px;
+    font-size: 11px;
+    color: #4a3c22;
+}
+
+.gh-mini-btn:hover {
+    background: #efe5c8;
+}
+
+/* ============================================================================
+   Профиль: тумблер и кнопка фильтра у блока наград
+   ============================================================================ */
+
+h4.gh-block-header {
+    position: relative;
+    padding-right: 130px !important;
+    min-height: 20px;
+}
+
+h4.gh-block-header > .gh-block-toggle {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+}
+
+.gh-profile-filter-btn {
+    position: absolute;
+    right: 46px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background: #f7f0dc;
+    border: 1px solid #918567;
+    border-radius: 3px;
+    padding: 2px 8px;
+    font-size: 11px;
+    color: #4a3c22;
+    white-space: nowrap;
+}
+
+.gh-profile-filter-btn:hover {
+    background: #efe5c8;
+}
+
+/* ============================================================================
+   Профиль: иконка «?» у h4 «Выигранные турниры»
+   ============================================================================ */
+
+.gh-h4-help {
+    display: inline-block;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    text-align: center;
+    border-radius: 50%;
+    background: #918567;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: help;
+    user-select: none;
+    vertical-align: middle;
+    margin-left: 6px;
+}
+
+.gh-h4-help::before {
+    content: '?';
+}
+
+.gh-h4-help:hover {
+    background: #6a6050;
+}
+
+#gh-h4-tooltip {
+    position: fixed;
+    z-index: 99999;
+    max-width: 400px;
+    box-sizing: border-box;
+    padding: 10px 14px;
+    background: #E7DBBB;
+    border: 1px solid #918567;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+}
+
+.gh-h4-tooltip-para {
+    margin: 0 0 8px;
+}
+
+.gh-h4-tooltip-para:last-child {
+    margin-bottom: 0;
+}
+
+.gh-h4-tooltip-para b {
+    color: #2f2510;
+}
+
+/* ============================================================================
+   Профиль: плавающая панель фильтра
+   ============================================================================ */
+
+#gh-profile-filter-panel {
+    position: fixed;
+    z-index: 99998;
+    min-width: 260px;
+    max-width: 420px;
+    max-height: calc(100vh - 20px);
+    overflow-y: auto;
+    box-sizing: border-box;
+    background: #E7DBBB;
+    border: 1px solid #918567;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 12px;
+    font-family: inherit;
+    color: #4a3c22;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+/* ============================================================================
+   Профиль: оригинальная таблица выигранных турниров
+   ============================================================================ */
+
+.gh-profile-original-table {
+    display: none !important;
+}
+
+/* ============================================================================
+   Профиль: подзаголовки «Основные / Не основные турниры»
+   ============================================================================ */
+
+.gh-profile-subheader {
+    margin: 12px 0 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #4a3c22;
+}
+
+/* ============================================================================
+   Профиль: панель прогресса коллекции
+   ============================================================================ */
+
+.gh-profile-stats {
+    background: #E7DBBB;
+    border: 1px solid #918567;
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin: 8px 0 12px;
+    font-size: 12px;
+    font-family: inherit;
+    color: #4a3c22;
+}
+
+.gh-stats-summary {
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #c5b895;
+    font-size: 12px;
+}
+
+.gh-stats-summary b {
+    color: #2f2510;
+}
+
+.gh-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+    gap: 4px 14px;
+}
+
+.gh-stats-cell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.gh-stats-cell.gh-stats-done {
+    color: #4f7a2d;
+    font-weight: 600;
+}
+
+.gh-stats-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gh-stats-value {
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.gh-stats-value b {
+    color: #2f2510;
+}
+
+.gh-stats-cell.gh-stats-done .gh-stats-value b {
+    color: #4f7a2d;
+}
+
+/* ---- Иконка «?» рядом с прогрессом ---- */
+
+.gh-stats-help {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    text-align: center;
+    border-radius: 50%;
+    background: #918567;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: help;
+    user-select: none;
+}
+
+.gh-stats-help:hover {
+    background: #6a6050;
+}
+
+/* ============================================================================
+   Профиль: тултип панели прогресса
+   ============================================================================ */
+
+#gh-stats-tooltip {
+    position: fixed;
+    z-index: 99999;
+    max-width: 340px;
+    max-height: 420px;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    background: #E7DBBB;
+    border: 1px solid #918567;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #333;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+}
+
+.gh-stats-tooltip-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #4a3c22;
+}
+
+.gh-stats-tooltip-list {
+    color: #333;
+    max-height: 360px;
+    overflow: hidden;
+}
+
+.gh-stats-tooltip-list > div {
+    padding: 1px 0;
+}
+
+.gh-stats-tooltip-more {
+    color: #777;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+.gh-stats-tooltip-empty {
+    color: #4f7a2d;
+    font-style: italic;
+}
+
+/* ============================================================================
+   Профиль: подсветка нераспознанных турниров + бейдж + тултип
+   ============================================================================ */
+
+.gh-profile-badge {
+    position: absolute;
+    left: 4px;
+    bottom: 4px;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 1;
+    cursor: help;
+    user-select: none;
+    z-index: 10;
+}
+
+#gh-profile-tooltip {
+    position: fixed;
+    z-index: 99999;
+    max-width: 320px;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border: 2px solid;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #333;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+}
+
+.gh-profile-tooltip-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+.gh-profile-tooltip-item {
+    margin: 2px 0;
+}
+
+/* ============================================================================
+   Зал славы: заголовок категории, вынутый из первого блока
+   ============================================================================ */
+
+.gh-category-row td {
+    text-align: center;
+}
+
+/* ============================================================================
+   Зал трофеев: панель статистики по датам
+   ============================================================================ */
+
+#gh-trophy-stats {
+    display: inline-block;
+    background: #E7DBBB;
+    border: 1px solid #918567;
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin: 10px 0;
+    font-size: 12px;
+    font-family: inherit;
+    color: #4a3c22;
+    min-width: 220px;
+}
+
+.gh-trophy-stats-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.gh-trophy-stats-title {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.gh-trophy-stats-toggle {
+    cursor: pointer;
+    background: #f7f0dc;
+    border: 1px solid #918567;
+    border-radius: 3px;
+    padding: 2px 8px;
+    font-size: 11px;
+    color: #4a3c22;
+}
+
+.gh-trophy-stats-toggle:hover {
+    background: #efe5c8;
+}
+
+.gh-trophy-stats-body {
+    margin-top: 6px;
+}
+
+.gh-trophy-stats-table {
+    border-collapse: collapse;
+    max-width: 280px;
+}
+
+.gh-trophy-stats-table th,
+.gh-trophy-stats-table td {
+    padding: 3px 10px;
+    text-align: left;
+    border-bottom: 1px solid #d0c4a8;
+    font-size: 12px;
+}
+
+.gh-trophy-stats-table th {
+    font-weight: bold;
+    color: #4a3c22;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.gh-trophy-stats-table td:nth-child(2),
+.gh-trophy-stats-table td:nth-child(3),
+.gh-trophy-stats-table th:nth-child(2),
+.gh-trophy-stats-table th:nth-child(3) {
+    text-align: center;
+    width: 50px;
+    font-variant-numeric: tabular-nums;
+}
+
+.gh-trophy-stats-empty {
+    color: #777;
+    font-style: italic;
+}
+
+/* ============================================================================
+   Страница турниров: перенесённая пагинация
+   Оригинал остаётся на месте (внизу), сверху — клон.
+   ============================================================================ */
+
+#gh-pagination-top,
+#gh-pagination-top *,
+#gh-pagination-bottom,
+#gh-pagination-bottom * {
+    font-size: 15px !important;
+    line-height: 2 !important;
+}
+
+#gh-pagination-top,
+#gh-pagination-bottom {
+    margin: 8px 0 12px;
+}
+
+#gh-pagination-top *,
+#gh-pagination-bottom * {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: none !important;
+}
+
+#gh-pagination-top td,
+#gh-pagination-bottom td {
+    padding: 0;
+}
+
+/* ============================================================================
+   Метки игроков: кнопка редактирования (только в профиле), попап, тултип
+   ============================================================================ */
+
+a.gh-user-link {
+    /* просто маркер, ничего не меняем */
+}
+
+/* ---- Кнопка «Заметка» рядом с заголовком «Профиль» ---- */
+
+.gh-pm-header-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 12px;
+    padding: 3px 10px;
+    background: #f7f0dc;
+    border: 1px solid #918567;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: normal;
+    color: #4a3c22;
+    cursor: pointer;
+    vertical-align: middle;
+    line-height: 1.3;
+}
+
+.gh-pm-header-btn:hover {
+    background: #efe5c8;
+}
+
+.gh-pm-header-btn-label {
+    white-space: nowrap;
+}
+
+.gh-pm-header-btn-icon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M11.5 1.5l3 3-9 9-4 1 1-4 9-9z' fill='none' stroke='%234a3c22' stroke-width='1.5' stroke-linejoin='round'/></svg>");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Кружок-индикатор: виден, только если у игрока есть метка. */
+.gh-pm-header-btn-dot {
+    display: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+}
+
+.gh-pm-header-btn-has-mark .gh-pm-header-btn-dot {
+    display: inline-block;
+}
+
+/* ---- Попап ---- */
+
+#gh-player-mark-popup {
+    position: fixed !important;
+    z-index: 100000;
+    width: 260px;
+    box-sizing: border-box;
+    background: #E7DBBB;
+    border: 1px solid #918567;
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-size: 12px;
+    font-family: inherit;
+    color: #4a3c22;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    display: block;
+    margin: 0;
+}
+
+.gh-pm-header {
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gh-pm-colors {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.gh-pm-color-btn {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid #918567;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.1s;
+}
+
+.gh-pm-color-btn:hover {
+    transform: scale(1.15);
+}
+
+.gh-pm-color-btn-selected {
+    outline: 2px solid #4a3c22;
+    outline-offset: 1px;
+}
+
+.gh-pm-color-picker {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 11px;
+    color: #555;
+}
+
+.gh-pm-color-picker input[type="color"] {
+    padding: 0;
+    width: 30px;
+    height: 22px;
+    cursor: pointer;
+    border: 1px solid #918567;
+    border-radius: 3px;
+    background: transparent;
+}
+
+.gh-pm-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 52px;
+    max-height: 120px;
+    font-family: inherit;
+    font-size: 12px;
+    padding: 4px 6px;
+    border: 1px solid #918567;
+    border-radius: 3px;
+    background: #f7f0dc;
+    color: #4a3c22;
+    resize: vertical;
+    margin-bottom: 8px;
+}
+
+.gh-pm-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.gh-pm-btn {
+    cursor: pointer;
+    padding: 4px 10px;
+    border: 1px solid #918567;
+    border-radius: 3px;
+    background: #f7f0dc;
+    font-size: 11px;
+    color: #4a3c22;
+}
+
+.gh-pm-btn:hover {
+    background: #efe5c8;
+}
+
+.gh-pm-btn-clear {
+    color: #c33;
+    border-color: #e0b8b8;
+}
+
+.gh-pm-btn-clear:hover {
+    background: #f5d5d5;
+}
+
+.gh-pm-name {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* ---- Тултип ---- */
+
+#gh-player-mark-tooltip {
+    position: fixed !important;
+    z-index: 99999;
+    max-width: 300px;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    background: #E7DBBB;
+    border: 1px solid #918567;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #333;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    display: block;
+    margin: 0;
+}
+
+.gh-pm-tooltip-title {
+    font-weight: bold;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: #777;
+    margin-bottom: 4px;
+}
+
+.gh-pm-tooltip-note {
+    color: #333;
+}
+
+/* ============================================================================
+   Менеджер: вкладка «Игроки»
+   ============================================================================ */
+
+.players-color-input {
+    width: 32px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid #918567;
+    border-radius: 3px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.players-id-link {
+    color: #4a3c22;
+    text-decoration: underline;
+    font-size: 12px;
+}
+
+.players-id-link:hover {
+    color: #7a0000;
+}
+
+.players-note-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 38px;
+    max-height: 120px;
+    font-family: inherit;
+    font-size: 12px;
+    padding: 4px 6px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #fff;
+    color: #333;
+    resize: vertical;
+}
+
+.players-note-textarea:hover {
+    border-color: #ddd;
+    background: #fafafa;
+}
+
+.players-note-textarea:focus {
+    outline: none;
+    border-color: #6a8f4a;
+    background: #fff;
+}
+
+.players-lock {
+    display: inline-block;
+    font-size: 14px;
+    opacity: 0.5;
+    cursor: help;
+}
+
+/* ---- Менеджер: строка добавления в таблице игроков ---- */
+
+.players-add-row td {
+    padding: 8px 10px !important;
+    background: #f7f7f7;
+    border-bottom: 2px solid #ddd !important;
+}
+
+.players-add-input {
+    display: inline-block;
+    width: calc(100% - 130px);
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: inherit;
+    background: #fff;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.players-add-input:focus {
+    outline: none;
+    border-color: #6a8f4a;
+}
+
+.players-add-btn {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 6px 14px;
+    cursor: pointer;
+    background: #6a8f4a;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: inherit;
+}
+
+.players-add-btn:hover {
+    background: #597a3d;
+}
+
+/* Помеченные игроки: жирный ник */
+.gh-pm-name {
+    font-weight: bold;
+}

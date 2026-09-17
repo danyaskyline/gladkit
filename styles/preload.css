@@ -1,0 +1,10 @@
+/* ============================================================================
+   styles/preload.css
+   Подключается на document_start. Скрывает целевые контейнеры, пока фильтры
+   инициализируются — чтобы не было мигания контента.
+   ============================================================================ */
+
+html[data-gh-pending] .script3 .top,
+html[data-gh-pending] #tableMain > tbody > tr > td:nth-child(1) > div > div > div > table {
+    visibility: hidden !important;
+}

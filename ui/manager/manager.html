@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Менеджер конфига — Gladiators.ru</title>
+    <link rel="stylesheet" href="manager.css">
+</head>
+<body>
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>Менеджер</h1>
+            <p class="sidebar-subtitle">Gladiators.ru — улучшения</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-group">
+                <div class="nav-group-title">Глобальное</div>
+                <button class="nav-item active" data-view="catalog">Турниры</button>
+                <button class="nav-item" data-view="menu">Меню игры</button>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-title">Страницы игры</div>
+                <button class="nav-item" data-view="page-glory">Зал славы</button>
+                <button class="nav-item" data-view="profiles">Профили</button>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-title">Игроки</div>
+                <button class="nav-item" data-view="players">Метки</button>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-title">Общее</div>
+                <button class="nav-item" data-view="backup">Бэкап и сброс</button>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="content">
+
+        <!-- КАТАЛОГ ТУРНИРОВ -->
+        <section id="view-catalog" class="view">
+            <h2>
+                Турниры
+                <span class="help-icon" data-tip="Здесь собраны все турниры, которые знает расширение.&#10;&#10;КАК УСТРОЕНО&#10;Две секции: «Категории» (типы турниров в игре) и «Словарь» (конкретные названия с уровнями и типами).&#10;&#10;Стандартные данные идут в комплекте с расширением. Их нельзя редактировать. Когда выйдет новая версия расширения со свежими данными — они обновятся автоматически.&#10;&#10;Свои записи можно добавлять, если расширение чего-то не знает. Свои записи всегда идут выше стандартных и перекрывают их при совпадении категории и имени.&#10;&#10;Порядок: сверху — твоё, снизу — стандартное (для справки)."></span>
+            </h2>
+            <p class="hint">
+                Категории и словарь турниров. Стандартные данные обновляются
+                вместе с расширением. Свои записи живут отдельно и имеют приоритет.
+            </p>
+
+            <section class="block collapse-block" id="block-categories">
+                <div class="collapse-header">
+                    <h3>Категории</h3>
+                    <button class="collapse-btn" type="button">▶ Развернуть</button>
+                </div>
+                <div class="collapse-body">
+                    <div class="group">
+                        <div class="group-title">
+                            Мои категории
+                            <span class="group-counter" id="categories-custom-count">0</span>
+                        </div>
+                        <form id="add-category-form" class="add-form">
+                            <input type="number" id="add-category-typeid" placeholder="typeid" min="1" required>
+                            <input type="text" id="add-category-name" placeholder="Название" required>
+                            <button type="submit">+ Добавить</button>
+                        </form>
+                        <table class="rules-table" id="categories-custom-table">
+                            <thead><tr>
+                                <th style="width:70px">typeid</th>
+                                <th>Название</th>
+                                <th style="width:90px">Вкл</th>
+                                <th style="width:90px">Регулярная</th>
+                                <th style="width:50px"></th>
+                            </tr></thead>
+                            <tbody id="categories-custom-tbody"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="group">
+                        <div class="group-title">
+                            Стандартные категории
+                            <span class="group-counter" id="categories-default-count">6</span>
+                        </div>
+                        <table class="rules-table" id="categories-default-table">
+                            <thead><tr>
+                                <th style="width:70px">typeid</th>
+                                <th>Название</th>
+                                <th style="width:90px">Регулярная</th>
+                            </tr></thead>
+                            <tbody id="categories-default-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="block collapse-block" id="block-dict">
+                <div class="collapse-header">
+                    <h3>Словарь турниров</h3>
+                    <button class="collapse-btn" type="button">▶ Развернуть</button>
+                </div>
+                <div class="collapse-body">
+                    <div class="group">
+                        <div class="group-title">
+                            Мои записи
+                            <span class="group-counter" id="dict-custom-count">0</span>
+                        </div>
+                        <form id="add-dict-entry-form" class="add-form">
+                            <input type="number" id="add-dict-typeid" placeholder="typeid" min="1" required>
+                            <input type="text" id="add-dict-name" placeholder="Имя (нормализованное)" required>
+                            <input type="text" id="add-dict-level" placeholder="Уровень (10 / 10-15 / unlimited)">
+                            <select id="add-dict-type">
+                                <option value="usual">usual (только основные)</option>
+                                <option value="all">all (с экстра-типами)</option>
+                            </select>
+                            <button type="submit">+ Добавить</button>
+                        </form>
+                        <table class="rules-table" id="dict-custom-table">
+                            <thead><tr>
+                                <th style="width:70px">typeid</th>
+                                <th>Имя</th>
+                                <th style="width:110px">Уровень</th>
+                                <th style="width:150px">Тип</th>
+                                <th style="width:50px"></th>
+                            </tr></thead>
+                            <tbody id="dict-custom-tbody"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="group">
+                        <div class="group-title">
+                            Стандартный словарь
+                            <span class="group-counter" id="dict-default-count">0</span>
+                        </div>
+                        <div class="settings-row">
+                            <label>Категория:
+                                <select id="dict-filter-typeid">
+                                    <option value="">Все</option>
+                                </select>
+                            </label>
+                            <label>Поиск: <input id="dict-search" type="text" placeholder="часть имени..."></label>
+                            <span class="hint" id="dict-filtered-count"></span>
+                        </div>
+                        <table class="rules-table" id="dict-default-table">
+                            <thead><tr>
+                                <th style="width:70px">typeid</th>
+                                <th>Имя</th>
+                                <th style="width:110px">Уровень</th>
+                                <th style="width:150px">Тип</th>
+                            </tr></thead>
+                            <tbody id="dict-default-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="block">
+                <h3>Подсветка нераспознанных</h3>
+                <p class="hint">
+                    Регулярные турниры, которых нет в словаре, подсвечиваются
+                    рамкой и значком «?». Работает на странице <code>tournaments.php</code>.
+                </p>
+                <div class="settings-row">
+                    <label class="chk"><input type="checkbox" id="highlight-enabled"> Включить подсветку</label>
+                </div>
+                <div class="settings-row">
+                    <label>Цвет:</label>
+                    <input type="color" id="highlight-color">
+                </div>
+                <div class="settings-row">
+                    <label>Толщина (px):</label>
+                    <input type="number" id="highlight-width" min="1" max="10" step="1">
+                </div>
+            </section>
+        </section>
+
+        <!-- МЕНЮ ИГРЫ -->
+        <section id="view-menu" class="view hidden">
+            <h2>
+                Меню игры
+                <span class="help-icon" data-tip="Свои пункты в главном меню игры.&#10;&#10;КАК УСТРОЕНО&#10;На сайте у каждого раздела (Резиденция, Отряд, Город, Арена, Платные опции, Политика, Разное) есть своё выпадающее подменю. Здесь ты добавляешь свои пункты в любое из них.&#10;&#10;ЧТО МОЖНО&#10;Название — как пункт будет отображаться.&#10;Ссылка — куда он ведёт. Можно вставить полный URL или относительный путь (например /xml/residence/treasury.php).&#10;&#10;ПОРЯДОК&#10;Внутри одного меню пункты можно двигать стрелками ▲ ▼. В разных меню они независимы.&#10;&#10;ЕСЛИ ПУНКТ УЖЕ ЕСТЬ&#10;Расширение не создаёт дубликаты. Если ссылка уже есть в этом подменю — ничего не добавится.&#10;&#10;СТАНДАРТНЫЙ ПРИМЕР&#10;«Артефакт опыта» в Отряде — уже добавлен и включён. Можно выключить чекбоксом или удалить, если не нужен."></span>
+            </h2>
+            <p class="hint">Свои пункты в главном меню gladiators.ru.</p>
+            <section class="block">
+                <form id="add-menu-item-form" class="add-form">
+                    <select id="add-menu-item-key">
+                        <option value="residence">Резиденция</option>
+                        <option value="gladiators">Отряд</option>
+                        <option value="city">Город</option>
+                        <option value="arena">Арена</option>
+                        <option value="bonus">Платные опции</option>
+                        <option value="politics">Политика</option>
+                        <option value="misc">Разное</option>
+                    </select>
+                    <input type="text" id="add-menu-item-title" placeholder="Название пункта" required>
+                    <input type="text" id="add-menu-item-url" placeholder="Ссылка" required>
+                    <button type="submit">+ Добавить</button>
+                </form>
+                <div id="menu-items-container"></div>
+            </section>
+        </section>
+
+        <!-- ЗАЛ СЛАВЫ -->
+        <section id="view-page-glory" class="view hidden">
+            <h2>Зал славы</h2>
+            <p class="hint">Настройки фильтра на странице <code>glory.php</code>.</p>
+
+            <section class="block">
+                <h3>Категории фильтра</h3>
+                <p class="hint">
+                    Категории берутся из вкладки «Турниры». Регулярные попадают
+                    в чекбоксы панели фильтра, нерегулярные — только в блок «Не основные».
+                </p>
+                <table class="rules-table" id="fof-categories-table">
+                    <thead><tr>
+                        <th style="width:70px">typeid</th>
+                        <th>Название</th>
+                        <th style="width:100px">Регулярная</th>
+                    </tr></thead>
+                    <tbody id="fof-categories-tbody"></tbody>
+                </table>
+            </section>
+
+            <section class="block">
+                <h3>Нерегулярные турниры по имени</h3>
+                <p class="hint">
+                    Эти турниры всегда попадают в «Не основные», независимо
+                    от категории в карточке.
+                </p>
+                <form id="add-fof-nonregular-form" class="add-form">
+                    <input type="text" id="add-fof-nonregular-name" placeholder="Название турнира" required>
+                    <button type="submit">+ Добавить</button>
+                </form>
+                <div class="levels-list" id="fof-nonregular-list"></div>
+            </section>
+        </section>
+
+        <!-- ПРОФИЛИ -->
+        <section id="view-profiles" class="view hidden">
+            <h2>Профили</h2>
+            <p class="hint">
+                Настройки для страниц профиля игрока и гильдии.
+            </p>
+
+            <section class="block collapse-block" id="block-profile-player">
+                <div class="collapse-header">
+                    <h3>Профиль игрока</h3>
+                    <button class="collapse-btn" type="button">▶ Развернуть</button>
+                </div>
+                <div class="collapse-body">
+                    <p class="hint">Настройки для страниц <code>/users/NNN</code>.</p>
+
+                    <div class="group">
+                        <div class="group-title">
+                            Скрываемые блоки
+                            <span class="group-counter" id="profile-hidden-count">скрыто 0</span>
+                            <button id="profile-reset-hidden-btn" class="danger-btn small" type="button">Показать все</button>
+                        </div>
+                        <p class="hint">
+                            Заголовки блоков, у которых будет тумблер «скрыть».
+                        </p>
+                        <form id="add-profile-block-form" class="add-form">
+                            <input type="text" id="add-profile-block-title" placeholder="Например: Олимпиада" required>
+                            <button type="submit">+ Добавить</button>
+                        </form>
+                        <div class="levels-list" id="profile-blocks-list"></div>
+                    </div>
+
+                    <div class="group">
+                        <div class="group-title">Турниры в профиле</div>
+
+                        <div class="subsection">
+                            <div class="subsection-title">Неосновные по имени</div>
+                            <p class="hint">
+                                Эти турниры всегда уходят в «Не основные», независимо
+                                от категории в карточке.
+                            </p>
+                            <form id="add-profile-nonregular-form" class="add-form">
+                                <input type="text" id="add-profile-nonregular-name" placeholder="Например: Новогодний турнир" required>
+                                <button type="submit">+ Добавить</button>
+                            </form>
+                            <div class="levels-list" id="profile-nonregular-list"></div>
+                        </div>
+
+                        <div class="subsection">
+                            <div class="subsection-title">Подсветка нераспознанных</div>
+                            <p class="hint">
+                                Регулярные турниры, которых нет в словаре, подсвечиваются
+                                рамкой и значком «?».
+                            </p>
+                            <div class="settings-row">
+                                <label class="chk"><input type="checkbox" id="profile-highlight-enabled"> Включить подсветку</label>
+                            </div>
+                            <div class="settings-row">
+                                <label>Цвет:</label>
+                                <input type="color" id="profile-highlight-color">
+                            </div>
+                            <div class="settings-row">
+                                <label>Толщина (px):</label>
+                                <input type="number" id="profile-highlight-width" min="1" max="10" step="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="block collapse-block" id="block-profile-guild">
+                <div class="collapse-header">
+                    <h3>Профиль гильдии</h3>
+                    <button class="collapse-btn" type="button">▶ Развернуть</button>
+                </div>
+                <div class="collapse-body">
+                    <p class="hint">Настройки для страниц <code>/guilds/NNN</code>.</p>
+
+                    <div class="group">
+                        <div class="group-title">
+                            Скрываемые блоки
+                            <span class="group-counter" id="guild-hidden-count">скрыто 0</span>
+                            <button id="guild-reset-hidden-btn" class="danger-btn small" type="button">Показать все</button>
+                        </div>
+                        <p class="hint">
+                            Заголовки блоков на странице гильдии, у которых будет
+                            тумблер «скрыть».
+                        </p>
+                        <form id="add-guild-block-form" class="add-form">
+                            <input type="text" id="add-guild-block-title" placeholder="Например: Олимпиада" required>
+                            <button type="submit">+ Добавить</button>
+                        </form>
+                        <div class="levels-list" id="guild-blocks-list"></div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- МЕТКИ -->
+        <section id="view-players" class="view hidden">
+            <h2>
+                Метки игроков
+                <span class="help-icon" data-tip="Цветные пометки на игроков.&#10;&#10;ГДЕ ВИДНЫ&#10;Везде на сайте, где есть ссылка на профиль игрока. Красится только ник, уровень [11] остаётся как был. Ник становится жирным.&#10;&#10;КАК ДОБАВИТЬ&#10;Только из профиля игрока — кнопка «Заметка» рядом с заголовком."></span>
+            </h2>
+            <p class="hint">
+                Цветные пометки на игроков. Редактируются в профиле игрока —
+                кнопка «Заметка».
+            </p>
+
+            <section class="block">
+                <p class="hint" id="players-status">Меток: 0.</p>
+                <div class="settings-row">
+                    <label>Поиск: <input id="players-search" type="text" placeholder="ник, id или заметка..."></label>
+                    <span class="hint" id="players-filtered-count"></span>
+                </div>
+                <table class="rules-table" id="players-table">
+                    <thead><tr>
+                        <th style="width:60px">Цвет</th>
+                        <th style="width:260px">Ник</th>
+                        <th>Заметка</th>
+                        <th style="width:50px"></th>
+                    </tr></thead>
+                    <tbody id="players-tbody"></tbody>
+                </table>
+            </section>
+        </section>
+
+        <!-- БЭКАП И СБРОС -->
+        <section id="view-backup" class="view hidden">
+            <h2>
+                Бэкап и сброс
+                <span class="help-icon" data-tip="Работа с пользовательскими данными.&#10;&#10;БЭКАП&#10;Экспорт конфига — один JSON со всем, что ты настроил: пользовательские категории и словарь, метки игроков, все настройки. Стандартные данные в файл не попадают — они придут с новой версией расширения.&#10;&#10;Импорт конфига — применяет данные из файла к свежим стандартным данным расширения. Заменяет текущие пользовательские настройки.&#10;&#10;ОТДЕЛЬНЫЕ РАЗДЕЛЫ&#10;Экспорт словаря и меток — если нужно перенести что-то одно.&#10;&#10;СБРОС&#10;Сбросить всё — возвращает конфиг, словарь, категории и метки к заводским. Отменить нельзя.&#10;Очистить метки — удаляет только цвета и заметки."></span>
+            </h2>
+            <p class="hint">
+                Резервная копия пользовательских настроек и сброс к дефолтам.
+            </p>
+
+            <section class="block">
+                <h3>Резервная копия</h3>
+                <p class="hint">
+                    Один JSON-файл содержит только то, что ты настроил сам:
+                    пользовательские категории и словарь, метки игроков, все настройки.
+                    Стандартные данные в файл не попадают.
+                </p>
+                <div class="settings-row">
+                    <button id="export-config-btn" class="primary-btn">Экспорт конфига</button>
+                    <label class="file-label">
+                        Импорт конфига (заменить)
+                        <input type="file" id="import-config-input" accept="application/json" hidden>
+                    </label>
+                </div>
+            </section>
+
+            <section class="block">
+                <h3>Отдельные разделы</h3>
+                <p class="hint">
+                    Если нужно перенести что-то одно — например, только словарь
+                    или только метки.
+                </p>
+                <div class="settings-row">
+                    <button id="dict-export-json-btn" type="button">Экспорт словаря</button>
+                    <label class="file-label">
+                        Импорт словаря (заменить)
+                        <input type="file" id="dict-import-json-input" accept=".json,application/json" hidden>
+                    </label>
+                </div>
+                <div class="settings-row">
+                    <button id="players-export-btn" type="button">Экспорт меток</button>
+                    <label class="file-label">
+                        Импорт меток (заменить)
+                        <input type="file" id="players-import-input" accept=".json,application/json" hidden>
+                    </label>
+                </div>
+            </section>
+
+            <section class="block danger-block">
+                <h3>Сброс</h3>
+                <p class="hint">
+                    Опасные действия. Отменить нельзя.
+                </p>
+                <div class="settings-row">
+                    <button id="reset-btn" class="danger-btn" type="button">Сбросить всё к дефолтам</button>
+                </div>
+                <p class="hint">
+                    Вернёт конфиг, словарь, категории и метки к заводским.
+                </p>
+                <div class="settings-row">
+                    <button id="players-clear-btn" class="danger-btn" type="button">Очистить метки игроков</button>
+                </div>
+                <p class="hint">
+                    Удалит только цвета и заметки. Остальное не тронет.
+                </p>
+            </section>
+        </section>
+
+    </main>
+</div>
+
+<script src="../../config/site.js"></script>
+<script src="../../config/data-defaults.js"></script>
+<script src="../../config/dict-default.js"></script>
+<script src="../../core/utils.js"></script>
+<script src="../../core/config.js"></script>
+<script src="../../core/storage.js"></script>
+<script src="../../core/store.js"></script>
+<script src="../../features/menu-tweaks/constants.js"></script>
+<script src="../../features/hall-of-fame-filter/dict.js"></script>
+<script src="manager.js"></script>
+</body>
+</html>
