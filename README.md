@@ -33,6 +33,8 @@
 
 Смотри [INSTALL.md](INSTALL.md) — подробная инструкция со скриншотами.
 
+Скачать - https://github.com/danyaskyline/gladkit/archive/refs/heads/main.zip
+
 Кратко: скачать ZIP, распаковать, загрузить в `chrome://extensions`
 в режиме разработчика.
 
