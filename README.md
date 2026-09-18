@@ -17,7 +17,7 @@
 
 Открой страницу расширения и нажми «Установить»:
 
-**[Установить GladKit](https://chromewebstore.google.com/detail/gladkit/ИД_РАСШИРЕНИЯ)**
+**[Установить GladKit](https://chromewebstore.google.com/detail/gladkit/dpgmgdfpomgfhijdmjcaimjimkbllnlm)**
 
 *(работает для Chrome, Edge, Яндекс.Браузера, Opera, Vivaldi, Brave)*
 
@@ -72,7 +72,7 @@ Firefox пока не поддерживается.
 
 ## Ссылки
 
-- Chrome Web Store: <https://chromewebstore.google.com/detail/gladkit/ИД_РАСШИРЕНИЯ>
+- Chrome Web Store: <https://chromewebstore.google.com/detail/gladkit/dpgmgdfpomgfhijdmjcaimjimkbllnlm>
 - Исходники: <https://github.com/danyaskyline/gladkit>
 - Связь с разработчиком: [copium](https://www.gladiators.ru/users/2099112) в игре
 - Поддержать: [DonationAlerts](https://www.donationalerts.com/r/cop1um)
