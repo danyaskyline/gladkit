@@ -2,7 +2,7 @@
 
 **Обычно расширение ставится в один клик** из Chrome Web Store:
 
-**[Установить GladKit](https://chromewebstore.google.com/detail/gladkit/ИД_РАСШИРЕНИЯ)**
+**[Установить GladKit](https://chromewebstore.google.com/detail/gladkit/dpgmgdfpomgfhijdmjcaimjimkbllnlm)**
 
 Эта инструкция — для случаев, когда установка из магазина не подходит:
 например, если хочется проверить код перед установкой, или если Chrome Web
